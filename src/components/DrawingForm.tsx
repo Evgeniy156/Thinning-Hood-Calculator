@@ -52,13 +52,13 @@ export const DrawingForm: React.FC<DrawingFormProps> = ({ onCalculate }) => {
       <CardHeader>
         <h2 className="text-xl font-semibold text-slate-800">Параметры расчёта</h2>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4 sm:space-y-6">
         {/* Геометрические параметры */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-4">
+          <h3 className="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 sm:mb-4">
             Геометрические параметры
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             <Input
               label="Наружный диаметр заготовки D₀"
               type="number"
@@ -126,10 +126,10 @@ export const DrawingForm: React.FC<DrawingFormProps> = ({ onCalculate }) => {
 
         {/* Параметры материала */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-4">
+          <h3 className="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 sm:mb-4">
             Параметры материала
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <Select
               label="Тип материала"
               value={selectedMaterial.type}
@@ -149,32 +149,32 @@ export const DrawingForm: React.FC<DrawingFormProps> = ({ onCalculate }) => {
           </div>
           
           {/* Свойства выбранного материала */}
-          <div className="mt-4 p-4 bg-slate-50 rounded-lg">
-            <h4 className="text-sm font-medium text-slate-700 mb-2">Свойства материала: {selectedMaterial.name}</h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-              <div>
-                <span className="text-slate-500">σв (предел прочности):</span>
-                <span className="ml-2 font-medium">{selectedMaterial.properties.sigmaB} МПа</span>
+          <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-slate-50 rounded-lg">
+            <h4 className="text-xs sm:text-sm font-medium text-slate-700 mb-2">Свойства материала: {selectedMaterial.name}</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 text-xs sm:text-sm">
+              <div className="flex flex-col sm:flex-row sm:items-baseline">
+                <span className="text-slate-500">{'σв:'}</span>
+                <span className="sm:ml-1 font-medium">{selectedMaterial.properties.sigmaB} МПа</span>
               </div>
-              <div>
-                <span className="text-slate-500">σт (предел текучести):</span>
-                <span className="ml-2 font-medium">{selectedMaterial.properties.sigmaT} МПа</span>
+              <div className="flex flex-col sm:flex-row sm:items-baseline">
+                <span className="text-slate-500">{'σт:'}</span>
+                <span className="sm:ml-1 font-medium">{selectedMaterial.properties.sigmaT} МПа</span>
               </div>
-              <div>
-                <span className="text-slate-500">ψy (сужение):</span>
-                <span className="ml-2 font-medium">{selectedMaterial.properties.psi}%</span>
+              <div className="flex flex-col sm:flex-row sm:items-baseline">
+                <span className="text-slate-500">{'ψy:'}</span>
+                <span className="sm:ml-1 font-medium">{selectedMaterial.properties.psi}%</span>
               </div>
-              <div>
-                <span className="text-slate-500">ρ (плотность):</span>
-                <span className="ml-2 font-medium">{selectedMaterial.properties.density} г/см³</span>
+              <div className="flex flex-col sm:flex-row sm:items-baseline">
+                <span className="text-slate-500">{'ρ:'}</span>
+                <span className="sm:ml-1 font-medium">{selectedMaterial.properties.density} г/см³</span>
               </div>
-              <div>
-                <span className="text-slate-500">K (коэф. упрочнения):</span>
-                <span className="ml-2 font-medium">{selectedMaterial.properties.K}</span>
+              <div className="flex flex-col sm:flex-row sm:items-baseline">
+                <span className="text-slate-500">K:</span>
+                <span className="sm:ml-1 font-medium">{selectedMaterial.properties.K}</span>
               </div>
-              <div>
-                <span className="text-slate-500">n (показатель упрочнения):</span>
-                <span className="ml-2 font-medium">{selectedMaterial.properties.n}</span>
+              <div className="flex flex-col sm:flex-row sm:items-baseline">
+                <span className="text-slate-500">n:</span>
+                <span className="sm:ml-1 font-medium">{selectedMaterial.properties.n}</span>
               </div>
             </div>
           </div>
@@ -182,10 +182,10 @@ export const DrawingForm: React.FC<DrawingFormProps> = ({ onCalculate }) => {
 
         {/* Технологические параметры */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-4">
+          <h3 className="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 sm:mb-4">
             Технологические параметры
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             <Input
               label="Количество переходов"
               type="number"
@@ -229,8 +229,8 @@ export const DrawingForm: React.FC<DrawingFormProps> = ({ onCalculate }) => {
         </div>
 
         {/* Кнопки */}
-        <div className="flex gap-4 pt-4">
-          <Button onClick={handleCalculate} size="lg" className="flex-1">
+        <div className="flex gap-3 sm:gap-4 pt-3 sm:pt-4">
+          <Button onClick={handleCalculate} size="lg" className="flex-1 text-sm sm:text-lg">
             Рассчитать
           </Button>
           <Button 
@@ -240,6 +240,7 @@ export const DrawingForm: React.FC<DrawingFormProps> = ({ onCalculate }) => {
             }} 
             variant="outline"
             size="lg"
+            className="text-sm sm:text-lg"
           >
             Сбросить
           </Button>

@@ -57,14 +57,14 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Круговая диаграмма распределения усилий */}
       <Card>
         <CardHeader>
-          <h2 className="text-xl font-semibold text-slate-800">Распределение усилий</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-800">Распределение усилий</h2>
         </CardHeader>
         <CardContent>
-          <div className="h-64">
+          <div className="h-48 sm:h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -72,8 +72,8 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(1)}%`}
-                  outerRadius={80}
+                  label={({ percent }) => `${((percent ?? 0) * 100).toFixed(1)}%`}
+                  outerRadius={typeof window !== 'undefined' && window.innerWidth < 640 ? 60 : 80}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -85,15 +85,15 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-4">
+          <div className="mt-3 sm:mt-4 grid grid-cols-3 gap-2 sm:gap-4">
             {forceData.map((item, index) => (
               <div key={index} className="text-center">
                 <div 
-                  className="w-3 h-3 rounded-full mx-auto mb-1" 
+                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full mx-auto mb-1" 
                   style={{ backgroundColor: item.color }}
                 />
-                <div className="text-xs text-slate-500">{item.name}</div>
-                <div className="font-semibold text-slate-700">{formatForce(item.value)}</div>
+                <div className="text-[10px] sm:text-xs text-slate-500 leading-tight">{item.name}</div>
+                <div className="font-semibold text-xs sm:text-base text-slate-700">{formatForce(item.value)}</div>
               </div>
             ))}
           </div>
@@ -103,27 +103,28 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
       {/* Гистограмма параметров деформации */}
       <Card>
         <CardHeader>
-          <h2 className="text-xl font-semibold text-slate-800">Параметры деформации</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-800">Параметры деформации</h2>
         </CardHeader>
         <CardContent>
-          <div className="h-64">
+          <div className="h-48 sm:h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={paramsData}>
+              <BarChart data={paramsData} margin={{ left: -10, right: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                <XAxis dataKey="name" stroke="#64748B" fontSize={12} />
-                <YAxis stroke="#64748B" fontSize={12} />
+                <XAxis dataKey="name" stroke="#64748B" fontSize={10} tick={{ fontSize: 10 }} interval={0} />
+                <YAxis stroke="#64748B" fontSize={10} width={35} />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: '#fff', 
                     border: '1px solid #E2E8F0',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    fontSize: '12px'
                   }}
                 />
                 <Bar dataKey="value" fill="#3B82F6" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-4 text-sm text-slate-500 text-center">
+          <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-slate-500 text-center">
             Относительные значения параметров (%)
           </div>
         </CardContent>
@@ -132,9 +133,9 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
       {/* Индикаторы предельных значений */}
       <Card>
         <CardHeader>
-          <h2 className="text-xl font-semibold text-slate-800">Контроль предельных значений</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-800">Контроль предельных значений</h2>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {limitsData.map((item, index) => {
             const percentage = Math.min((item.actual / item.limit) * 100, 100);
             const isWarning = item.actual > item.recommended;
@@ -142,13 +143,13 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
             
             return (
               <div key={index}>
-                <div className="flex justify-between text-sm mb-2">
+                <div className="flex justify-between text-xs sm:text-sm mb-1.5 sm:mb-2">
                   <span className="font-medium text-slate-700">{item.name}</span>
                   <span className={isDanger ? 'text-red-600' : isWarning ? 'text-amber-600' : 'text-emerald-600'}>
                     {item.actual.toFixed(1)}% / {item.limit}%
                   </span>
                 </div>
-                <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                <div className="h-2.5 sm:h-3 bg-slate-200 rounded-full overflow-hidden">
                   <div 
                     className={`h-full rounded-full transition-all duration-500 ${
                       isDanger ? 'bg-red-500' : isWarning ? 'bg-amber-500' : 'bg-emerald-500'
@@ -156,10 +157,12 @@ export const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ output }
                     style={{ width: `${percentage}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                <div className="flex justify-between text-[10px] sm:text-xs text-slate-400 mt-1">
                   <span>0%</span>
-                  <span>Рекомендуемое: {item.recommended}%</span>
-                  <span>Предельное: {item.limit}%</span>
+                  <span className="hidden sm:inline">Рекомендуемое: {item.recommended}%</span>
+                  <span className="sm:hidden">Рек.: {item.recommended}%</span>
+                  <span className="hidden sm:inline">Предельное: {item.limit}%</span>
+                  <span className="sm:hidden">Пред.: {item.limit}%</span>
                 </div>
               </div>
             );

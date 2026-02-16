@@ -68,16 +68,16 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({ onLoadCalculation })
     <div className="space-y-6">
       {/* Заголовок с действиями */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <h2 className="text-xl font-semibold text-slate-800">История расчётов</h2>
-          <div className="flex gap-2">
-            <Button onClick={handleExportJSON} variant="outline" size="sm">
+        <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-800">История расчётов</h2>
+          <div className="flex gap-2 flex-wrap">
+            <Button onClick={handleExportJSON} variant="outline" size="sm" className="text-xs sm:text-sm">
               📄 JSON
             </Button>
-            <Button onClick={handleExportCSV} variant="outline" size="sm">
+            <Button onClick={handleExportCSV} variant="outline" size="sm" className="text-xs sm:text-sm">
               📊 CSV
             </Button>
-            <Button onClick={handleClear} variant="danger" size="sm">
+            <Button onClick={handleClear} variant="danger" size="sm" className="text-xs sm:text-sm">
               🗑️ Очистить
             </Button>
           </div>
@@ -87,30 +87,30 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({ onLoadCalculation })
       {/* Список истории */}
       {history.length === 0 ? (
         <Card>
-          <CardContent className="text-center py-12">
-            <div className="text-6xl mb-4">📭</div>
-            <h3 className="text-lg font-medium text-slate-600 mb-2">История пуста</h3>
-            <p className="text-slate-500">Выполните расчёт, чтобы сохранить его в историю</p>
+          <CardContent className="text-center py-8 sm:py-12">
+            <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">📭</div>
+            <h3 className="text-base sm:text-lg font-medium text-slate-600 mb-2">История пуста</h3>
+            <p className="text-sm sm:text-base text-slate-500">Выполните расчёт, чтобы сохранить его в историю</p>
           </CardContent>
         </Card>
       ) : (
         <div className="space-y-4">
           {history.map((item) => (
             <Card key={item.id} className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-4">
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="font-semibold text-slate-800">{item.calculatorName}</h3>
-                    <p className="text-sm text-slate-500">{formatDate(item.timestamp)}</p>
+              <CardContent className="p-3 sm:p-4">
+                <div className="flex items-start justify-between mb-2 sm:mb-3">
+                  <div className="min-w-0 flex-1 mr-2">
+                    <h3 className="font-semibold text-slate-800 text-sm sm:text-base truncate">{item.calculatorName}</h3>
+                    <p className="text-xs sm:text-sm text-slate-500">{formatDate(item.timestamp)}</p>
                   </div>
                   <Badge variant="success">Сохранено</Badge>
                 </div>
 
                 {/* Краткая информация о расчёте */}
-                <div className="bg-slate-50 rounded-lg p-3 mb-3">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                <div className="bg-slate-50 rounded-lg p-2 sm:p-3 mb-2 sm:mb-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
                     <div>
-                      <span className="text-slate-500">D₀:</span>
+                      <span className="text-slate-500">{'D₀:'}</span>
                       <span className="ml-1 font-medium">{item.input.D0} мм</span>
                     </div>
                     <div>
@@ -118,8 +118,8 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({ onLoadCalculation })
                       <span className="ml-1 font-medium">{item.input.d} мм</span>
                     </div>
                     <div>
-                      <span className="text-slate-500">s₀→s:</span>
-                      <span className="ml-1 font-medium">{item.input.s0}→{item.input.s} мм</span>
+                      <span className="text-slate-500">{'s₀→s:'}</span>
+                      <span className="ml-1 font-medium">{item.input.s0}{'→'}{item.input.s} мм</span>
                     </div>
                     <div>
                       <span className="text-slate-500">Pmax:</span>
@@ -128,7 +128,7 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({ onLoadCalculation })
                       </span>
                     </div>
                   </div>
-                  <div className="mt-2 text-sm text-slate-500">
+                  <div className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-500">
                     Материал: <span className="font-medium">{getMaterialName(item.input.materialId)}</span>
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({ onLoadCalculation })
                     onClick={() => onLoadCalculation?.(item.input, item.output)}
                     variant="outline" 
                     size="sm"
-                    className="flex-1"
+                    className="flex-1 text-xs sm:text-sm"
                   >
                     📥 Загрузить
                   </Button>

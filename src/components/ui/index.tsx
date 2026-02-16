@@ -13,13 +13,13 @@ export const Card: React.FC<CardProps> = ({ children, className }) => (
 );
 
 export const CardHeader: React.FC<CardProps> = ({ children, className }) => (
-  <div className={cn("px-6 py-4 border-b border-slate-200 bg-slate-50", className)}>
+  <div className={cn("px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 bg-slate-50", className)}>
     {children}
   </div>
 );
 
 export const CardContent: React.FC<CardProps> = ({ children, className }) => (
-  <div className={cn("p-6", className)}>
+  <div className={cn("p-4 sm:p-6", className)}>
     {children}
   </div>
 );
@@ -45,9 +45,9 @@ export const Button: React.FC<ButtonProps> = ({
   };
   
   const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
+    sm: 'px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm',
+    md: 'px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base',
+    lg: 'px-4 sm:px-6 py-2 sm:py-3 text-base sm:text-lg'
   };
   
   return (
@@ -80,13 +80,13 @@ export const Input: React.FC<InputProps> = ({
 }) => (
   <div className="space-y-1">
     {label && (
-      <label className="block text-sm font-medium text-slate-700">
+      <label className="block text-xs sm:text-sm font-medium text-slate-700 leading-tight">
         {label}
       </label>
     )}
     <input
       className={cn(
-        "w-full px-4 py-2.5 rounded-lg border-2 transition-all duration-200",
+        "w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border-2 transition-all duration-200 text-sm sm:text-base",
         "focus:outline-none focus:ring-2 focus:ring-offset-1",
         error 
           ? "border-red-300 focus:border-red-500 focus:ring-red-200" 
@@ -97,8 +97,8 @@ export const Input: React.FC<InputProps> = ({
       )}
       {...props}
     />
-    {error && <p className="text-sm text-red-600">{error}</p>}
-    {warning && !error && <p className="text-sm text-amber-600">{warning}</p>}
+    {error && <p className="text-xs sm:text-sm text-red-600">{error}</p>}
+    {warning && !error && <p className="text-xs sm:text-sm text-amber-600">{warning}</p>}
   </div>
 );
 
@@ -117,13 +117,13 @@ export const Select: React.FC<SelectProps> = ({
 }) => (
   <div className="space-y-1">
     {label && (
-      <label className="block text-sm font-medium text-slate-700">
+      <label className="block text-xs sm:text-sm font-medium text-slate-700 leading-tight">
         {label}
       </label>
     )}
     <select
       className={cn(
-        "w-full px-4 py-2.5 rounded-lg border-2 transition-all duration-200",
+        "w-full px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border-2 transition-all duration-200 text-sm sm:text-base",
         "focus:outline-none focus:ring-2 focus:ring-offset-1",
         error 
           ? "border-red-300 focus:border-red-500 focus:ring-red-200" 
@@ -139,7 +139,7 @@ export const Select: React.FC<SelectProps> = ({
         </option>
       ))}
     </select>
-    {error && <p className="text-sm text-red-600">{error}</p>}
+    {error && <p className="text-xs sm:text-sm text-red-600">{error}</p>}
   </div>
 );
 
@@ -171,13 +171,13 @@ interface TabsProps {
 }
 
 export const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onChange }) => (
-  <div className="flex gap-1 p-1 bg-slate-100 rounded-lg">
+  <div className="flex gap-1 p-1 bg-slate-100 rounded-lg overflow-x-auto">
     {tabs.map(tab => (
       <button
         key={tab.id}
         onClick={() => onChange(tab.id)}
         className={cn(
-          "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200",
+          "flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-1 justify-center sm:flex-none",
           activeTab === tab.id
             ? "bg-white text-blue-600 shadow-sm"
             : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
